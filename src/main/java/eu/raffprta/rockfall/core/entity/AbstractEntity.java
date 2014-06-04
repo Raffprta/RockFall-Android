@@ -2,13 +2,18 @@ package eu.raffprta.rockfall.core.entity;
 
 import android.graphics.Bitmap;
 
-import eu.raffprta.rockfall.app.SpriteContainer;
+import java.util.LinkedList;
+import java.util.List;
+
 import eu.raffprta.rockfall.core.sprite.*;
 
 /**
  * Class to provide partial implementation of the Entity interface.
  */
 public abstract class AbstractEntity implements Entity{
+
+    // For now this List is only for cataloging purposes
+    List<Integer> l = new LinkedList<Integer>();
 
     private Sprite s;
     private int id;
@@ -18,6 +23,8 @@ public abstract class AbstractEntity implements Entity{
         this.s = s;
         this.name = name;
         this.id = id;
+        // Catalog the Ids
+        l.add(new Integer(id));
     }
 
     public Bitmap getSprite(){

@@ -20,6 +20,7 @@ public class GameCanvas extends SurfaceView implements SurfaceHolder.Callback{
     private SurfaceHolder surface;
     private Context context;
     private SpriteFactory s;
+    private GameScreen screen;
 
     public GameCanvas(Context context, Activity parent){
         super(context);
@@ -30,6 +31,7 @@ public class GameCanvas extends SurfaceView implements SurfaceHolder.Callback{
         surface = this.getHolder();
         surface.addCallback(this);
         this.parent = parent;
+        this.screen = new GameScreen(this.getWidth(), this.getHeight());
     }
 
     public void surfaceCreated(SurfaceHolder holder){
@@ -47,7 +49,7 @@ public class GameCanvas extends SurfaceView implements SurfaceHolder.Callback{
     }
 
     private void drawAll(Canvas c){
-        c.drawBitmap(s.getBackground().getSprite(), 0, 0, null);
+        screen.render(0,0,c,s.getBackground());
     }
 
 }

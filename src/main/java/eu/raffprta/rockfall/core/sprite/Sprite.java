@@ -2,6 +2,8 @@ package eu.raffprta.rockfall.core.sprite;
 
 import android.graphics.Bitmap;
 
+import eu.raffprta.rockfall.app.SpriteContainer;
+
 /**
  * A class resembling a Sprite object, which can be affixed to objects
  * that are SpriteContainers (like Entities and Tiles)
@@ -11,7 +13,7 @@ import android.graphics.Bitmap;
  *
  */
 
-public class Sprite {
+public class Sprite implements SpriteContainer{
 
     private SpriteSheet s;
     private int col;
