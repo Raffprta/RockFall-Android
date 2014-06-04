@@ -1,18 +1,14 @@
 package eu.raffprta.rockfall.core.entity;
 
-
-import android.graphics.Canvas;
-
 import eu.raffprta.rockfall.core.sprite.Sprite;
 
-public class Rock extends AbstractEntity implements Fallable{
 
-    private int damageLevel;
+public class Powerup extends AbstractEntity implements Fallable{
+
     private int x,y;
 
-    public Rock(Sprite s, String name, int id, int damageLevel){
+    public Powerup(Sprite s, String name, int id){
         super(s, name, id);
-        this.damageLevel = damageLevel;
     }
 
     @Override
@@ -28,4 +24,5 @@ public class Rock extends AbstractEntity implements Fallable{
     public int getY(){
         return this.y;
     }
+
 }

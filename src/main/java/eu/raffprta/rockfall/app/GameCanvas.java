@@ -1,6 +1,5 @@
 package eu.raffprta.rockfall.app;
 
-import android.os.SystemClock;
 import android.view.*;
 import android.content.*;
 import android.app.*;
@@ -9,7 +8,6 @@ import android.util.Log;
 
 import eu.raffprta.rockfall.core.entity.*;
 import eu.raffprta.rockfall.core.entity.Entity;
-import eu.raffprta.rockfall.core.sprite.Sprite;
 import eu.raffprta.rockfall.core.sprite.SpriteFactory;
 
 /**
@@ -49,8 +47,8 @@ public class GameCanvas extends SurfaceView implements SurfaceHolder.Callback{
     }
 
     public void surfaceCreated(SurfaceHolder holder){
-        // TODO : Remove magic
-        miner = e.getMiner(getWidth() / 2, getHeight() - 135);
+        final int OFF = 135;
+        miner = e.getMiner(getWidth() / 2, getHeight() - OFF);
         // Start rendering thread.
         (new Thread(new GameThread())).start();
     }
