@@ -19,7 +19,7 @@ public class SpriteSheet{
     private int id;
 
     // This is the value used in the grid of our spritesheet - so it is to be ignored when loading
-    private final int MAGIC_IGNORE = -65396;
+    private final int MAGIC_IGNORE = -20791;
 
     public SpriteSheet(Resources res, int id){
         this.res = res;
