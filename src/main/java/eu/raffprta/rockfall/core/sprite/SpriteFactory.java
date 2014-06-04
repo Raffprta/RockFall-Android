@@ -2,6 +2,8 @@ package eu.raffprta.rockfall.core.sprite;
 
 
 import android.content.res.*;
+import android.util.Log;
+
 import eu.raffprta.rockfall.app.R;
 
 /**

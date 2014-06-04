@@ -1,5 +1,6 @@
 package eu.raffprta.rockfall.app;
 
+import android.os.SystemClock;
 import android.view.*;
 import android.content.*;
 import android.app.*;
@@ -8,6 +9,7 @@ import android.util.Log;
 
 import eu.raffprta.rockfall.core.entity.*;
 import eu.raffprta.rockfall.core.entity.Entity;
+import eu.raffprta.rockfall.core.sprite.Sprite;
 import eu.raffprta.rockfall.core.sprite.SpriteFactory;
 
 /**
@@ -75,7 +77,9 @@ public class GameCanvas extends SurfaceView implements SurfaceHolder.Callback{
         }
     }
 
+
     private class GameThread implements Runnable {
+
         @Override
         public void run() {
             final int TICKSET = 60;
@@ -111,6 +115,7 @@ public class GameCanvas extends SurfaceView implements SurfaceHolder.Callback{
                 canvas = surface.lockCanvas(null);
                 screen.render(0, 0, canvas, s.getBackground());
                 drawAll(canvas);
+                surface.unlockCanvasAndPost(canvas);
                 frames++;
 
                 // This is called when the second has passed
@@ -124,7 +129,7 @@ public class GameCanvas extends SurfaceView implements SurfaceHolder.Callback{
                     frames = 0;
                 }
 
-                surface.unlockCanvasAndPost(canvas);
+
             }
         }
 

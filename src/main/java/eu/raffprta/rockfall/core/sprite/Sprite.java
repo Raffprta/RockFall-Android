@@ -22,6 +22,7 @@ public class Sprite implements SpriteContainer{
     private int cellHeight;
     private final String NAME;
     private boolean isWhole;
+    private Bitmap cachedBit;
 
     public Sprite(SpriteSheet s, int col, int row, int cellWidth, int cellHeight, final String NAME){
         this.s = s;
@@ -46,11 +47,15 @@ public class Sprite implements SpriteContainer{
     }
 
     public Bitmap getPartialImage(){
-        return s.getCell(this.col, this.row, this.cellWidth, this.cellHeight);
+        if(cachedBit == null)
+            cachedBit = s.getCell(this.col, this.row, this.cellWidth, this.cellHeight);
+        return cachedBit;
     }
 
     public Bitmap getWholeImage(){
-        return s.getWhole();
+        if(cachedBit == null)
+            cachedBit = s.getWhole();
+        return cachedBit;
     }
 
     public String toString(){
