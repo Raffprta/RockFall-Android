@@ -39,4 +39,7 @@ public abstract class AbstractEntity implements Entity{
         return this.name;
     }
 
+    public abstract int getX();
+    public abstract int getY();
+
 }

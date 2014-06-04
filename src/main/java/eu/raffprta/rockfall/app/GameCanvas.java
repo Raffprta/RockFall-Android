@@ -6,7 +6,8 @@ import android.app.*;
 import android.graphics.*;
 import android.util.Log;
 
-import eu.raffprta.rockfall.core.entity.EntityFactory;
+import eu.raffprta.rockfall.core.entity.*;
+import eu.raffprta.rockfall.core.entity.Entity;
 import eu.raffprta.rockfall.core.sprite.SpriteFactory;
 
 /**
@@ -26,6 +27,9 @@ public class GameCanvas extends SurfaceView implements SurfaceHolder.Callback{
     private TouchHandler touchMonitor = new TouchHandler();
     private boolean gameActive = true;
 
+    private final int MOVE_FACTOR = 12;
+    private Entity miner;
+
     public GameCanvas(Context context, Activity parent){
         super(context);
         // pass the resources to our sprite factory.
@@ -43,6 +47,8 @@ public class GameCanvas extends SurfaceView implements SurfaceHolder.Callback{
     }
 
     public void surfaceCreated(SurfaceHolder holder){
+        // TODO : Remove magic
+        miner = e.getMiner(getWidth() / 2, getHeight() - 135);
         // Start rendering thread.
         (new Thread(new GameThread())).start();
     }
@@ -56,18 +62,31 @@ public class GameCanvas extends SurfaceView implements SurfaceHolder.Callback{
     }
 
     private void drawAll(Canvas c){
-        screen.render(touchMonitor.getX(), touchMonitor.getY(), c, e.getMiner());
+        screen.render(miner.getX(), miner.getY(), c, miner);
+    }
+
+    private void updateProtagonist(Protagonist e){
+        if(touchMonitor.getX() < miner.getX() && touchMonitor.isActivated()){
+            miner.update(miner.getX() - MOVE_FACTOR, miner.getY());
+        }else if (touchMonitor.getX() > miner.getX() && touchMonitor.isActivated()){
+            miner.update(miner.getX() + MOVE_FACTOR, miner.getY());
+        }else{
+            miner.update(miner.getX(), miner.getY());
+        }
     }
 
     private class GameThread implements Runnable {
         @Override
         public void run() {
+            // TODO : Write clock code, limit at 60 UPS
             while (gameActive) {
                 canvas = surface.lockCanvas(null);
                 screen.render(0, 0, canvas, s.getBackground());
                 drawAll(canvas);
+                updateProtagonist((Protagonist)miner);
                 surface.unlockCanvasAndPost(canvas);
             }
         }
+
     }
 }

@@ -8,6 +8,7 @@ import eu.raffprta.rockfall.core.sprite.Sprite;
 public class Rock extends AbstractEntity{
 
     private int damageLevel;
+    private int x,y;
 
     public Rock(Sprite s, String name, int id, int damageLevel){
         super(s, name, id);
@@ -15,7 +16,16 @@ public class Rock extends AbstractEntity{
     }
 
     @Override
-    public void update(Canvas c, int x, int y) {
-        // TODO
+    public void update(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    public int getX(){
+        return this.x;
+    }
+
+    public int getY(){
+        return this.y;
     }
 }

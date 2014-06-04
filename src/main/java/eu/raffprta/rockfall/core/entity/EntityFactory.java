@@ -14,9 +14,9 @@ public class EntityFactory {
         this.spr = spr;
     }
 
-    public Entity getMiner(){
+    public Entity getMiner(int startX, int startY){
         if(MINER == null){
-            this.MINER = new Protagonist(this.spr.getMiner(), "Miner", 1);
+            this.MINER = new Protagonist(this.spr.getMiner(), "Miner", 1, startX, startY);
         }
         return MINER;
     }

@@ -14,13 +14,22 @@ public interface Entity extends SpriteContainer {
 
     /**
      * This method updates the Entity's position with x/y coordinates.
-     * The canvas object is the canvas where said character will be rendered to.
      */
-    public void update(Canvas c, int x, int y);
+    public void update(int x, int y);
 
     /**
      * Defines a method for retrieving the physical bitmap sprite.
      */
     public Bitmap getSprite();
+
+    /**
+     * Defines a getter for the x coordinate.
+     */
+    public int getX();
+
+    /**
+     * defines a getter for the y coordinate.
+     */
+    public int getY();
 
 }

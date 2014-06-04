@@ -7,12 +7,25 @@ import eu.raffprta.rockfall.core.sprite.Sprite;
 
 public class Protagonist extends AbstractEntity{
 
-    public Protagonist(Sprite s, String name, int id){
+    private int x,y;
+
+    public Protagonist(Sprite s, String name, int id, int x, int y){
         super(s, name, id);
+        this.x = x;
+        this.y = y;
     }
 
     @Override
-    public void update(Canvas c, int x, int y) {
-        // TODO
+    public void update(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    public int getX(){
+        return this.x;
+    }
+
+    public int getY(){
+        return this.y;
     }
 }
