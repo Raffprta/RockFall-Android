@@ -72,7 +72,7 @@ public class GameCanvas extends SurfaceView implements SurfaceHolder.Callback{
     private void drawHearts(Canvas c){
         double lives = ((Protagonist)miner).getLives();
         for(double i = 0 ; i < lives; i++){
-            SpriteContainer toRender = null;
+            SpriteContainer toRender;
             if(lives - 0.5 == Math.floor(lives) && i == 0){
                 toRender = s.getHeartHalf();
             }else{
