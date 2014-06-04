@@ -27,7 +27,7 @@ public class GameCanvas extends SurfaceView implements SurfaceHolder.Callback{
     private TouchHandler touchMonitor = new TouchHandler();
     private boolean gameActive = true;
 
-    private final int MOVE_FACTOR = 12;
+    private final int MOVE_FACTOR = 2;
     private Entity miner;
 
     public GameCanvas(Context context, Activity parent){
@@ -78,12 +78,52 @@ public class GameCanvas extends SurfaceView implements SurfaceHolder.Callback{
     private class GameThread implements Runnable {
         @Override
         public void run() {
-            // TODO : Write clock code, limit at 60 UPS
+            final int TICKSET = 60;
+            // Sets the timing variables.
+            long lastTime = System.nanoTime();
+            long timer = System.currentTimeMillis();
+            // Delta regulates the distribution of ticks per second (for the updates)
+            double delta = 0;
+
+            // Frames, updates store information
+            int frames = 0;
+            int updates = 0;
+
             while (gameActive) {
+
+                // Nanoseconds act as 1*10^9 / TICKSET
+                double ns = 1000000000.0 / TICKSET;
+                // Get the current time
+                long now = System.nanoTime();
+                // Delta gets the temporal difference and divides through by the the tick set, resulting in a fraction of 1
+                delta += (now-lastTime) / ns;
+                // Resets the timer.
+                lastTime = now;
+
+                // Update specific code is ran in here
+                while(delta >= 1){
+                    updates++;
+                    delta--;
+                    updateProtagonist((Protagonist)miner);
+                }
+
+                // Render specific code is ran in here
                 canvas = surface.lockCanvas(null);
                 screen.render(0, 0, canvas, s.getBackground());
                 drawAll(canvas);
-                updateProtagonist((Protagonist)miner);
+                frames++;
+
+                // This is called when the second has passed
+                if(System.currentTimeMillis() - timer > 1000){
+                    // Adds one more second
+                    timer += 1000;
+                    // Solely for debug reasons.
+                    Log.w(updates + " : UPS | " , frames + " : FPS");
+                    // Reset updates & frames
+                    updates = 0;
+                    frames = 0;
+                }
+
                 surface.unlockCanvasAndPost(canvas);
             }
         }
