@@ -1,5 +1,8 @@
 package eu.raffprta.rockfall.core.entity;
 
+import android.graphics.Bitmap;
+
+import eu.raffprta.rockfall.app.SpriteContainer;
 import eu.raffprta.rockfall.core.sprite.*;
 
 /**
@@ -17,8 +20,8 @@ public abstract class AbstractEntity implements Entity{
         this.id = id;
     }
 
-    public Sprite getSprite(){
-        return this.s;
+    public Bitmap getSprite(){
+        return this.s.getSprite();
     }
 
     public int getId(){
