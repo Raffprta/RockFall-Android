@@ -2,6 +2,7 @@ package eu.raffprta.rockfall.app;
 
 import android.graphics.Canvas;
 import android.media.Image;
+import android.util.Log;
 
 /**
  * Class that handles what is drawn on the screen - it

@@ -24,6 +24,7 @@ public class GameCanvas extends SurfaceView implements SurfaceHolder.Callback{
     private EntityFactory e;
     private GameScreen screen;
     private TouchHandler touchMonitor = new TouchHandler();
+    private boolean gameActive = true;
 
     public GameCanvas(Context context, Activity parent){
         super(context);
@@ -42,9 +43,8 @@ public class GameCanvas extends SurfaceView implements SurfaceHolder.Callback{
     }
 
     public void surfaceCreated(SurfaceHolder holder){
-        canvas = surface.lockCanvas(null);
-        drawAll(canvas);
-        surface.unlockCanvasAndPost(canvas);
+        // Start rendering thread.
+        (new Thread(new GameThread())).start();
     }
 
     public void surfaceDestroyed(SurfaceHolder holder){
@@ -56,8 +56,18 @@ public class GameCanvas extends SurfaceView implements SurfaceHolder.Callback{
     }
 
     private void drawAll(Canvas c){
-        screen.render(0, 0, c, s.getBackground());
-        screen.render(this.getWidth()/2, this.getHeight()-e.getMiner().getSprite().getHeight(), c, e.getMiner());
+        screen.render(touchMonitor.getX(), touchMonitor.getY(), c, e.getMiner());
     }
 
+    private class GameThread implements Runnable {
+        @Override
+        public void run() {
+            while (gameActive) {
+                canvas = surface.lockCanvas(null);
+                screen.render(0, 0, canvas, s.getBackground());
+                drawAll(canvas);
+                surface.unlockCanvasAndPost(canvas);
+            }
+        }
+    }
 }
