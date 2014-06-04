@@ -41,5 +41,7 @@ public abstract class AbstractEntity implements Entity{
 
     public abstract int getX();
     public abstract int getY();
+    public abstract int getVelX();
+    public abstract int getVelY();
 
 }

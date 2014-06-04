@@ -13,9 +13,9 @@ import eu.raffprta.rockfall.app.SpriteContainer;
 public interface Entity extends SpriteContainer {
 
     /**
-     * This method updates the Entity's position with x/y coordinates.
+     * This method updates the Entity's position with x/y coordinates and respective velocities.
      */
-    public void update(int x, int y);
+    public void update(int x, int y, int velX, int velY);
 
     /**
      * Defines a method for retrieving the physical bitmap sprite.
@@ -31,5 +31,15 @@ public interface Entity extends SpriteContainer {
      * defines a getter for the y coordinate.
      */
     public int getY();
+
+    /**
+     * Defines velocity for x.
+     */
+    public int getVelX();
+
+    /**
+     * Defines velocity for y.
+     */
+    public int getVelY();
 
 }

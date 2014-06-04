@@ -6,6 +6,8 @@ import android.app.*;
 import android.graphics.*;
 import android.util.Log;
 
+import java.util.HashMap;
+
 import eu.raffprta.rockfall.core.entity.*;
 import eu.raffprta.rockfall.core.entity.Entity;
 import eu.raffprta.rockfall.core.sprite.SpriteFactory;
@@ -61,17 +63,32 @@ public class GameCanvas extends SurfaceView implements SurfaceHolder.Callback{
 
     }
 
+
     private void drawAll(Canvas c){
         screen.render(miner.getX(), miner.getY(), c, miner);
+        drawHearts(c);
+    }
+
+    private void drawHearts(Canvas c){
+        double lives = ((Protagonist)miner).getLives();
+        for(double i = 0 ; i < lives; i++){
+            SpriteContainer toRender = null;
+            if(lives - 0.5 == Math.floor(lives) && i == 0){
+                toRender = s.getHeartHalf();
+            }else{
+                toRender = s.getHeartFull();
+            }
+            screen.render(getWidth() - ((int)(Math.round(i+1)) * s.getHeartFull().getSprite().getWidth() + 2), 0, c, toRender);
+        }
     }
 
     private void updateProtagonist(Protagonist e){
         if(touchMonitor.getX() < miner.getX() && touchMonitor.isActivated()){
-            miner.update(miner.getX() - MOVE_FACTOR, miner.getY());
+            miner.update(miner.getX(), miner.getY(), -MOVE_FACTOR, 0);
         }else if (touchMonitor.getX() > miner.getX() && touchMonitor.isActivated()){
-            miner.update(miner.getX() + MOVE_FACTOR, miner.getY());
+            miner.update(miner.getX(), miner.getY(), +MOVE_FACTOR, 0);
         }else{
-            miner.update(miner.getX(), miner.getY());
+            miner.update(miner.getX(), miner.getY(), 0, 0);
         }
     }
 
