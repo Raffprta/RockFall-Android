@@ -50,7 +50,6 @@ public class SpriteSheet{
 
         for(int i = 0; i < cellWidth; i++){
             for(int j = 0; j < cellHeight; j++){
-                Log.w("", Integer.toString(subImg.getPixel(i,j)));
                 if(subImg.getPixel(i, j) == MAGIC_IGNORE){
                     subImg.setPixel(i, j, 0);
                 }

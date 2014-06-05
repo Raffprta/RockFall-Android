@@ -2,6 +2,7 @@ package eu.raffprta.rockfall.core.entity;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Rect;
 
 import eu.raffprta.rockfall.app.SpriteContainer;
 
@@ -46,5 +47,10 @@ public interface Entity extends SpriteContainer {
      * Defines a boolean for accessing whether an object is colliding with another or not.
      */
     public boolean isCollidedWith(Entity e);
+
+    /**
+     * Define a getter to get the entity's associated collision rectangle.
+     */
+    public Rect getCollisionBox();
 
 }

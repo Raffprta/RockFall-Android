@@ -23,16 +23,18 @@ public abstract class AbstractEntity implements Entity{
 
     private Rect collisionBox;
 
-    public AbstractEntity(Sprite s, String name, int id, int x, int y){
+    public AbstractEntity(Sprite s, String name, int id, int x, int y, int velX, int velY){
         this.s = s;
         this.name = name;
         this.id = id;
         this.x = x;
         this.y = y;
+        this.velX = velX;
+        this.velY = velY;
         // Catalog the Ids
         l.add(new Integer(id));
         // Add the collision box
-        collisionBox = new Rect();
+        collisionBox = new Rect(x,y,x+s.getSprite().getWidth(),y+s.getSprite().getHeight());
     }
 
     public Bitmap getSprite(){
@@ -65,6 +67,14 @@ public abstract class AbstractEntity implements Entity{
         this.y = y + velY;
         this.velX = velX;
         this.velY = velY;
+    }
+
+    public Rect getCollisionBox(){
+        return this.collisionBox;
+    }
+
+    public boolean isCollidedWith(Entity e){
+        return this.getCollisionBox().contains(e.getCollisionBox());
     }
 
 }

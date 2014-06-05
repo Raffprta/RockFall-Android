@@ -11,8 +11,8 @@ public class Protagonist extends AbstractEntity{
     // A default value.
     private double lives = 3.0f;
 
-    public Protagonist(Sprite s, String name, int id, int x, int y){
-        super(s, name, id, x, y);
+    public Protagonist(Sprite s, String name, int id, int x, int y, int velX, int velY){
+        super(s, name, id, x, y, velX, velY);
     }
 
     @Override
@@ -43,7 +43,7 @@ public class Protagonist extends AbstractEntity{
     public void setLives(double lives){this.lives = lives;}
 
     public boolean isCollidedWith(Entity e){
-        return false;
+        return super.isCollidedWith(e);
     }
 
 }

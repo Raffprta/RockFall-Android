@@ -6,7 +6,10 @@ import android.app.*;
 import android.graphics.*;
 import android.util.Log;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Random;
 
 import eu.raffprta.rockfall.core.entity.*;
 import eu.raffprta.rockfall.core.entity.Entity;
@@ -50,7 +53,8 @@ public class GameCanvas extends SurfaceView implements SurfaceHolder.Callback{
 
     public void surfaceCreated(SurfaceHolder holder){
         final int OFF = 135;
-        miner = e.getMiner(getWidth() / 2, getHeight() - OFF);
+        miner = e.getMiner(getWidth() / 2, getHeight() - OFF, 2, 0);
+        initGame();
         // Start rendering thread.
         (new Thread(new GameThread())).start();
     }
@@ -63,10 +67,47 @@ public class GameCanvas extends SurfaceView implements SurfaceHolder.Callback{
 
     }
 
+    private List<Fallable> fallables = new ArrayList<Fallable>();
+
+    /**
+     * This method initiates the start of the game, when the surface is drawn.
+     */
+    private void initGame(){
+        Random r = new Random();
+        int initialRocks = r.nextInt(getWidth()>>4);
+        for(int i = 0 ; i < initialRocks; i++){
+            fallables.add(getRandomFallable(r.nextInt(getWidth()), -1*r.nextInt(getHeight())));
+        }
+    }
+
+    private Fallable getRandomFallable(int x, int y){
+        final int FALLABLES_AVAILABLE = 6;
+        int theRandomNumber = (new Random()).nextInt(FALLABLES_AVAILABLE);
+
+        switch(theRandomNumber){
+            case 0:
+                return (Fallable)e.getNoobKitty(x, y, 0, 2);
+            case 1:
+                return (Fallable)e.getIcePointedRock(x, y, 0, 4);
+            case 2:
+                return (Fallable)e.getIceRock(x, y, 0, 3);
+            case 3:
+                return (Fallable)e.getNormalRock(x, y, 0, 3);
+            case 4:
+                return (Fallable)e.getNormalPointedRock(x,y,0,4);
+            case 5:
+                return (Fallable)e.getNormalFatRock(x,y,0,2);
+        }
+
+        throw new RuntimeException("Unresolved error with random generation");
+
+    }
+
 
     private void drawAll(Canvas c){
         screen.render(miner.getX(), miner.getY(), c, miner);
         drawHearts(c);
+        drawFallables(fallables, c);
     }
 
     private void drawHearts(Canvas c){
@@ -79,6 +120,19 @@ public class GameCanvas extends SurfaceView implements SurfaceHolder.Callback{
                 toRender = s.getHeartFull();
             }
             screen.render(getWidth() - ((int)(Math.round(i+1)) * s.getHeartFull().getSprite().getWidth() + 2), 0, c, toRender);
+        }
+    }
+
+    private void drawFallables(List<Fallable> fallables, Canvas c){
+        for(Fallable f : fallables)
+            screen.render(f.getX(), f.getY(),c,f);
+
+    }
+
+
+    private void updateFallables(List<Fallable> fallables){
+        for(Fallable f : fallables){
+            f.update(f.getX(), f.getY(), 0, f.getVelY());
         }
     }
 
@@ -131,6 +185,7 @@ public class GameCanvas extends SurfaceView implements SurfaceHolder.Callback{
                     updates++;
                     delta--;
                     updateProtagonist((Protagonist)miner);
+                    updateFallables(fallables);
                 }
 
                 // Render specific code is ran in here
