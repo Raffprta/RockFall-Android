@@ -23,72 +23,72 @@ public class EntityFactory {
         return MINER;
     }
 
-    public Entity getPointsUp(){
+    public Entity getPointsUp(int startX, int startY){
         if(this.POINTS_UP == null){
-            this.POINTS_UP = new Powerup(this.spr.getPointsUp(), "Points Up", 101);
+            this.POINTS_UP = new Powerup(this.spr.getPointsUp(), "Points Up", 101, startX, startY);
         }
         return POINTS_UP;
     }
 
-    public Entity getPointsDown(){
+    public Entity getPointsDown(int startX, int startY){
         if(this.POINTS_DOWN == null){
-            this.POINTS_DOWN = new Powerup(this.spr.getPointsDown(), "Points Down", 102);
+            this.POINTS_DOWN = new Powerup(this.spr.getPointsDown(), "Points Down", 102, startX, startY);
         }
         return this.POINTS_DOWN;
     }
 
-    public Entity getSpeedUp(){
+    public Entity getSpeedUp(int startX, int startY){
         if(this.SPEED_UP == null){
-            this.SPEED_UP = new Powerup(this.spr.getSpeedUp(), "Speed Up", 103);
+            this.SPEED_UP = new Powerup(this.spr.getSpeedUp(), "Speed Up", 103, startX, startY);
         }
-        return this.getPointsDown();
+        return this.SPEED_UP;
     }
 
-    public Entity getHeartUp(){
+    public Entity getHeartUp(int startX, int startY){
         if(this.HEART_UP == null){
-            this.HEART_UP = new Powerup(this.spr.getHeartUp(), "Heart Up", 104);
+            this.HEART_UP = new Powerup(this.spr.getHeartUp(), "Heart Up", 104, startX, startY);
         }
         return this.HEART_UP;
     }
 
-    public Entity getSpeedDown(){
+    public Entity getSpeedDown(int startX, int startY){
         if(this.SPEED_DOWN == null){
-            this.SPEED_DOWN = new Powerup(this.spr.getSpeedDown(), "Speed Down", 105);
+            this.SPEED_DOWN = new Powerup(this.spr.getSpeedDown(), "Speed Down", 105, startX, startY);
         }
         return this.SPEED_DOWN;
     }
 
-    public Entity getNormalRock(){
+    public Entity getNormalRock(int startX, int startY){
         if(this.NORMAL_ROCK == null){
-            this.NORMAL_ROCK = new Rock(this.spr.getNormalRock(), "Normal Rock", 201, 1);
+            this.NORMAL_ROCK = new Rock(this.spr.getNormalRock(), "Normal Rock", 201,startX, startY, 1);
         }
         return this.NORMAL_ROCK;
     }
 
-    public Entity getIceRock(){
+    public Entity getIceRock(int startX, int startY){
         if(this.ICE_ROCK == null){
-            this.ICE_ROCK = new Rock(this.spr.getIceRock(), "Ice Rock", 202, 0.5);
+            this.ICE_ROCK = new Rock(this.spr.getIceRock(), "Ice Rock", 202, startX, startY, 0.5);
         }
         return this.ICE_ROCK;
     }
 
-    public Entity getIcePointedRock(){
+    public Entity getIcePointedRock(int startX, int startY){
         if(this.ICE_POINTED_ROCK == null){
-            this.ICE_POINTED_ROCK = new Rock(this.spr.getIcePointedRock(), "Ice Pointed Rock", 203, 0.5);
+            this.ICE_POINTED_ROCK = new Rock(this.spr.getIcePointedRock(), "Ice Pointed Rock", 203, startX, startY, 0.5);
         }
         return this.ICE_POINTED_ROCK;
     }
 
-    public Entity getNormalPointedRock(){
+    public Entity getNormalPointedRock(int startX, int startY){
         if(this.NORMAL_POINTED_ROCK == null){
-            this.NORMAL_POINTED_ROCK = new Rock(this.spr.getNormalPointedRock(), "Normal Pointed Rock", 204, 1);
+            this.NORMAL_POINTED_ROCK = new Rock(this.spr.getNormalPointedRock(), "Normal Pointed Rock", 204, startX, startY, 1);
         }
         return this.NORMAL_POINTED_ROCK;
     }
 
-    public Entity getNormalFatRock(){
+    public Entity getNormalFatRock(int startX, int startY){
         if(this.NORMAL_FAT_ROCK == null){
-            this.NORMAL_FAT_ROCK = new Rock(this.spr.getNormalFatRock(), "Normal Fat Rock", 205, 1);
+            this.NORMAL_FAT_ROCK = new Rock(this.spr.getNormalFatRock(), "Normal Fat Rock", 205, startX, startY, 1);
         }
         return this.NORMAL_FAT_ROCK;
     }

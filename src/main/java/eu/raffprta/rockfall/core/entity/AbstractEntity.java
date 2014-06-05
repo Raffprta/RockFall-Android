@@ -1,6 +1,7 @@
 package eu.raffprta.rockfall.core.entity;
 
 import android.graphics.Bitmap;
+import android.graphics.Rect;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -18,13 +19,20 @@ public abstract class AbstractEntity implements Entity{
     private Sprite s;
     private int id;
     private String name;
+    private int x,y, velX, velY;
 
-    public AbstractEntity(Sprite s, String name, int id){
+    private Rect collisionBox;
+
+    public AbstractEntity(Sprite s, String name, int id, int x, int y){
         this.s = s;
         this.name = name;
         this.id = id;
+        this.x = x;
+        this.y = y;
         // Catalog the Ids
         l.add(new Integer(id));
+        // Add the collision box
+        collisionBox = new Rect();
     }
 
     public Bitmap getSprite(){
@@ -39,9 +47,24 @@ public abstract class AbstractEntity implements Entity{
         return this.name;
     }
 
-    public abstract int getX();
-    public abstract int getY();
-    public abstract int getVelX();
-    public abstract int getVelY();
+    public int getX(){
+        return this.x;
+    }
+    public int getY(){
+        return this.y;
+    }
+    public int getVelX(){
+        return this.velX;
+    }
+    public int getVelY(){
+        return this.velY;
+    }
+
+    public void update(int x, int y, int velX, int velY){
+        this.x = x + velX;
+        this.y = y + velY;
+        this.velX = velX;
+        this.velY = velY;
+    }
 
 }

@@ -5,37 +5,37 @@ import eu.raffprta.rockfall.core.sprite.Sprite;
 
 public class Powerup extends AbstractEntity implements Fallable{
 
-    private int x,y,velX,velY;
 
-    public Powerup(Sprite s, String name, int id){
-        super(s, name, id);
+    public Powerup(Sprite s, String name, int id, int x, int y){
+        super(s, name, id, x, y);
     }
 
     @Override
     public void update(int x, int y, int velX, int velY) {
-        this.x = x;
-        this.y = y;
-        this.velX = velX;
-        this.velY = velY;
+        super.update(x, y, velX, velY);
     }
 
 
     public int getX(){
-        return this.x;
+        return super.getX();
     }
 
     public int getY(){
-        return this.y;
+        return super.getY();
     }
 
     @Override
     public int getVelX() {
-        return this.velX;
+        return super.getVelX();
     }
 
     @Override
     public int getVelY() {
-        return this.velY;
+        return super.getVelY();
+    }
+
+    public boolean isCollidedWith(Entity e){
+        return false;
     }
 
 }

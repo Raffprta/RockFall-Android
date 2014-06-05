@@ -93,6 +93,14 @@ public class GameCanvas extends SurfaceView implements SurfaceHolder.Callback{
     }
 
 
+    /**
+     * This private class is a thread that executes the main game loop. The loop updates
+     * 60 times per seconds whilst attempting to update the graphics as fast as possible
+     * though this limit is capped at 60 FPS anyways on Android devices. The game thread
+     * is fed methods from its parent public class (GameCanvas) which cater to updating the
+     * game logic or the rendering to the canvas.
+     */
+
     private class GameThread implements Runnable {
 
         @Override

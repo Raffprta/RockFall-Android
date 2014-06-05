@@ -42,4 +42,9 @@ public interface Entity extends SpriteContainer {
      */
     public int getVelY();
 
+    /**
+     * Defines a boolean for accessing whether an object is colliding with another or not.
+     */
+    public boolean isCollidedWith(Entity e);
+
 }
