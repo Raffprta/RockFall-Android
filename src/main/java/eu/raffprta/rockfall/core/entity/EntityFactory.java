@@ -11,6 +11,7 @@ public class EntityFactory {
     private Entity MINER;
     private Entity POINTS_UP, POINTS_DOWN, SPEED_UP, HEART_UP, SPEED_DOWN;
     private Entity ICE_ROCK, NORMAL_ROCK, ICE_POINTED_ROCK, NORMAL_POINTED_ROCK, NORMAL_FAT_ROCK;
+    private Entity NOOB_KITTY;
 
     public EntityFactory(SpriteFactory spr){
         this.spr = spr;
@@ -91,6 +92,13 @@ public class EntityFactory {
             this.NORMAL_FAT_ROCK = new Rock(this.spr.getNormalFatRock(), "Normal Fat Rock", 205, startX, startY, 1);
         }
         return this.NORMAL_FAT_ROCK;
+    }
+
+    public Entity getNoobKitty(int startX, int startY){
+        if(this.NOOB_KITTY == null){
+            this.NOOB_KITTY = new Rock(this.spr.getNoobKitty(), "Noob Kitty", 206, startX, startY, 2);
+        }
+        return this.NOOB_KITTY;
     }
 
 }

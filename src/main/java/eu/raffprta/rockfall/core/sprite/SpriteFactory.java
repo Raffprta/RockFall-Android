@@ -14,6 +14,7 @@ public class SpriteFactory {
 
     private Resources res;
     private SpriteSheet bg;
+    private SpriteSheet kitty;
     private SpriteSheet minerSheet;
     private SpriteSheet powerSheet;
     private SpriteSheet icoSheet;
@@ -21,7 +22,7 @@ public class SpriteFactory {
     private SpriteSheet pointedRocks;
     private SpriteSheet fatRocks;
 
-    private Sprite BACKGROUND;
+    private Sprite BACKGROUND, NOOB_KITTY;
     private Sprite MINER_STANCE_NORMAL;
     private Sprite POINTS_UP,POINTS_DOWN,SPEED_UP,HEART_UP,SPEED_DOWN;
     private Sprite ICO_HEART_FULL, ICO_HEART_HALF, ICO_HEART_NONE;
@@ -36,13 +37,21 @@ public class SpriteFactory {
         this.basicRocks = new SpriteSheet(this.res, R.drawable.basic_rocks);
         this.pointedRocks = new SpriteSheet(this.res, R.drawable.pointed_rocks);
         this.fatRocks = new SpriteSheet(this.res, R.drawable.fat_rocks);
+        this.kitty = new SpriteSheet(this.res, R.drawable.noob_kitty);
     }
 
     public Sprite getBackground(){
         if(this.BACKGROUND == null){
-           this.BACKGROUND = new Sprite(bg, "NORMAL_BG");
+           this.BACKGROUND = new Sprite(bg, "Normal Background");
         }
         return this.BACKGROUND;
+    }
+
+    public Sprite getNoobKitty(){
+        if(this.NOOB_KITTY == null){
+            this.NOOB_KITTY = new Sprite(kitty, "Noob Kitty");
+        }
+        return this.NOOB_KITTY;
     }
 
     public Sprite getMiner(){

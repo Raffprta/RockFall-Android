@@ -20,6 +20,8 @@ public class SpriteSheet{
 
     // This is the value used in the grid of our spritesheet - so it is to be ignored when loading
     private final int MAGIC_IGNORE = -20791;
+    // Extra value for magic ignore, for single images
+
 
     public SpriteSheet(Resources res, int id){
         this.res = res;
@@ -48,6 +50,7 @@ public class SpriteSheet{
 
         for(int i = 0; i < cellWidth; i++){
             for(int j = 0; j < cellHeight; j++){
+                Log.w("", Integer.toString(subImg.getPixel(i,j)));
                 if(subImg.getPixel(i, j) == MAGIC_IGNORE){
                     subImg.setPixel(i, j, 0);
                 }
