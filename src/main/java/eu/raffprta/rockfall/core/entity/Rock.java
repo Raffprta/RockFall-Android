@@ -7,10 +7,10 @@ import eu.raffprta.rockfall.core.sprite.Sprite;
 
 public class Rock extends AbstractEntity implements Fallable{
 
-    private int damageLevel;
+    private double damageLevel;
     private int x,y, velX, velY;
 
-    public Rock(Sprite s, String name, int id, int damageLevel){
+    public Rock(Sprite s, String name, int id, double damageLevel){
         super(s, name, id);
         this.damageLevel = damageLevel;
     }

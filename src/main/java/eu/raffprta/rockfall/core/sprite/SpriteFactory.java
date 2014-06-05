@@ -17,11 +17,15 @@ public class SpriteFactory {
     private SpriteSheet minerSheet;
     private SpriteSheet powerSheet;
     private SpriteSheet icoSheet;
+    private SpriteSheet basicRocks;
+    private SpriteSheet pointedRocks;
+    private SpriteSheet fatRocks;
 
     private Sprite BACKGROUND;
     private Sprite MINER_STANCE_NORMAL;
     private Sprite POINTS_UP,POINTS_DOWN,SPEED_UP,HEART_UP,SPEED_DOWN;
     private Sprite ICO_HEART_FULL, ICO_HEART_HALF, ICO_HEART_NONE;
+    private Sprite ICE_ROCK, NORMAL_ROCK, ICE_POINTED_ROCK, NORMAL_POINTED_ROCK, NORMAL_FAT_ROCK;
 
     public SpriteFactory(Resources res){
         this.res = res;
@@ -29,6 +33,9 @@ public class SpriteFactory {
         this.minerSheet = new SpriteSheet(this.res, R.drawable.miner);
         this.powerSheet = new SpriteSheet(this.res, R.drawable.powers);
         this.icoSheet = new SpriteSheet(this.res, R.drawable.icos);
+        this.basicRocks = new SpriteSheet(this.res, R.drawable.basic_rocks);
+        this.pointedRocks = new SpriteSheet(this.res, R.drawable.pointed_rocks);
+        this.fatRocks = new SpriteSheet(this.res, R.drawable.fat_rocks);
     }
 
     public Sprite getBackground(){
@@ -98,6 +105,41 @@ public class SpriteFactory {
             this.ICO_HEART_NONE = new Sprite(icoSheet, 0, 0, 35, 35, "No Heart");
         }
         return this.ICO_HEART_NONE;
+    }
+
+    public Sprite getIceRock(){
+        if(this.ICE_ROCK == null){
+            this.ICE_ROCK = new Sprite(basicRocks, 0, 0, 82, 82, "Ice Rock");
+        }
+        return this.ICE_ROCK;
+    }
+
+    public Sprite getNormalRock(){
+        if(this.NORMAL_ROCK == null){
+            this.NORMAL_ROCK = new Sprite(basicRocks, 1, 0, 82, 82, "Normal Rock");
+        }
+        return this.NORMAL_ROCK;
+    }
+
+    public Sprite getNormalPointedRock(){
+        if(this.NORMAL_POINTED_ROCK == null){
+            this.NORMAL_POINTED_ROCK = new Sprite(pointedRocks, 0, 0, 58, 90, "Normal Pointed Rock");
+        }
+        return this.NORMAL_POINTED_ROCK;
+    }
+
+    public Sprite getIcePointedRock(){
+        if(this.ICE_POINTED_ROCK == null){
+            this.ICE_POINTED_ROCK = new Sprite(pointedRocks, 1, 0, 58, 90, "Ice Pointed Rock");
+        }
+        return this.ICE_POINTED_ROCK;
+    }
+
+    public Sprite getNormalFatRock(){
+        if(this.NORMAL_FAT_ROCK == null){
+            this.NORMAL_FAT_ROCK = new Sprite(fatRocks, 0, 0, 175, 90, "Fat Normal Rock");
+        }
+        return this.NORMAL_FAT_ROCK;
     }
 
 }
