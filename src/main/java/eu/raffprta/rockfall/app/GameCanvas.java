@@ -92,7 +92,6 @@ public class GameCanvas extends SurfaceView implements SurfaceHolder.Callback{
         }
     }
 
-
     /**
      * This private class is a thread that executes the main game loop. The loop updates
      * 60 times per seconds whilst attempting to update the graphics as fast as possible
