@@ -15,7 +15,12 @@ public class TouchHandler implements View.OnTouchListener {
     public boolean onTouch(View view, MotionEvent motionEvent) {
         this.x = Math.round(motionEvent.getX());
         this.y = Math.round(motionEvent.getY());
-        isActivated = true;
+        if(motionEvent.getAction() == motionEvent.ACTION_DOWN){
+            isActivated = true;
+        }
+        else if(motionEvent.getAction() == motionEvent.ACTION_UP ) {
+            isActivated = false;
+        }
         return false;
     }
 

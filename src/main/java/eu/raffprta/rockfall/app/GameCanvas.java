@@ -47,6 +47,8 @@ public class GameCanvas extends SurfaceView implements SurfaceHolder.Callback{
         surface.addCallback(this);
         this.parent = parent;
         this.screen = new GameScreen(this.getWidth(), this.getHeight());
+        // This enables the capture of ACTION_DOWN (i.e. release)
+        this.setLongClickable(true);
         // Add touch listener
         this.setOnTouchListener(touchMonitor);
     }
