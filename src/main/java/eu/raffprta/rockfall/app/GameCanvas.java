@@ -33,7 +33,7 @@ public class GameCanvas extends SurfaceView implements SurfaceHolder.Callback{
     private TouchHandler touchMonitor = new TouchHandler();
     private boolean gameActive = true;
 
-    private final int MOVE_FACTOR = 2;
+    private final int MOVE_FACTOR = 4;
     private Entity miner;
 
     public GameCanvas(Context context, Activity parent){
@@ -89,7 +89,7 @@ public class GameCanvas extends SurfaceView implements SurfaceHolder.Callback{
      */
     private void spawnRocks(){
         Random r = new Random();
-        int initialRocks = r.nextInt(getWidth()>>4);
+        int initialRocks = r.nextInt(this.getWidth() >> 6);
         for(int i = 0 ; i < initialRocks; i++){
             fallables.add(getRandomFallable(r.nextInt(getWidth()), -1*r.nextInt(getHeight())));
         }
@@ -141,7 +141,6 @@ public class GameCanvas extends SurfaceView implements SurfaceHolder.Callback{
     private void drawFallables(List<Fallable> fallables, Canvas c){
         for(Fallable f : fallables)
             screen.render(f.getX(), f.getY(),c,f);
-
     }
 
 
@@ -155,12 +154,20 @@ public class GameCanvas extends SurfaceView implements SurfaceHolder.Callback{
     }
 
     private void updateProtagonist(Protagonist e){
+        // Update the protagonist's position in relation to touch.
         if(touchMonitor.getX() < miner.getX() && touchMonitor.isActivated()){
             miner.update(miner.getX(), miner.getY(), -MOVE_FACTOR, 0);
         }else if (touchMonitor.getX() - miner.getSprite().getWidth() > miner.getX() && touchMonitor.isActivated()){
             miner.update(miner.getX(), miner.getY(), +MOVE_FACTOR, 0);
         }else{
             miner.update(miner.getX(), miner.getY(), 0, 0);
+        }
+        // Check for collision with Rocks (using instanceof)
+        for(int i = 0; i < fallables.size(); i++){
+            if(miner.isCollidedWith(fallables.get(i)) && fallables.get(i) instanceof Rock){
+                ((Protagonist)miner).setLives(((Protagonist)miner).getLives() - ((Rock)fallables.get(i)).getDamageLevel());
+                fallables.remove(i);
+            }
         }
     }
 

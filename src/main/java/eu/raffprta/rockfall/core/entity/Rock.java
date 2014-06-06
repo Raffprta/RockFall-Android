@@ -41,6 +41,8 @@ public class Rock extends AbstractEntity implements Fallable{
         return false;
     }
 
-
+    public double getDamageLevel(){
+        return this.damageLevel;
+    }
 
 }

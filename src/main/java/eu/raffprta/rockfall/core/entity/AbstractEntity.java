@@ -2,6 +2,7 @@ package eu.raffprta.rockfall.core.entity;
 
 import android.graphics.Bitmap;
 import android.graphics.Rect;
+import android.util.Log;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -67,6 +68,7 @@ public abstract class AbstractEntity implements Entity{
         this.y = y + velY;
         this.velX = velX;
         this.velY = velY;
+        this.collisionBox.set(x,y,x+s.getSprite().getWidth(),y+s.getSprite().getHeight());
     }
 
     public Rect getCollisionBox(){
@@ -74,7 +76,7 @@ public abstract class AbstractEntity implements Entity{
     }
 
     public boolean isCollidedWith(Entity e){
-        return this.getCollisionBox().contains(e.getCollisionBox());
+        return this.getCollisionBox().intersect(e.getCollisionBox());
     }
 
 }
