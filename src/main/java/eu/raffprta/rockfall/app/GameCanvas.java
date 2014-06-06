@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
+import java.util.Timer;
 
 import eu.raffprta.rockfall.core.entity.*;
 import eu.raffprta.rockfall.core.entity.Entity;
@@ -56,7 +57,9 @@ public class GameCanvas extends SurfaceView implements SurfaceHolder.Callback{
     public void surfaceCreated(SurfaceHolder holder){
         final int OFF = 135;
         miner = e.getMiner(getWidth() / 2, getHeight() - OFF, 2, 0);
-        initGame();
+        // Start timer and spawn initial rocks
+        stopWatch.start();
+        spawnRocks();
         // Start rendering thread.
         (new Thread(new GameThread())).start();
     }
@@ -70,11 +73,21 @@ public class GameCanvas extends SurfaceView implements SurfaceHolder.Callback{
     }
 
     private List<Fallable> fallables = new ArrayList<Fallable>();
-
+    private StopWatch stopWatch = new StopWatch();
+    /**
+     * This handles temporal logic in the game.
+     */
+    private void checkTimerAndReset(StopWatch timer, long timeToElapseNano){
+        if(timer.getElapsedTime() > timeToElapseNano){
+            spawnRocks();
+            timer.reset();
+            timer.start();
+        }
+    }
     /**
      * This method initiates the start of the game, when the surface is drawn.
      */
-    private void initGame(){
+    private void spawnRocks(){
         Random r = new Random();
         int initialRocks = r.nextInt(getWidth()>>4);
         for(int i = 0 ; i < initialRocks; i++){
@@ -108,8 +121,8 @@ public class GameCanvas extends SurfaceView implements SurfaceHolder.Callback{
 
     private void drawAll(Canvas c){
         screen.render(miner.getX(), miner.getY(), c, miner);
-        drawHearts(c);
         drawFallables(fallables, c);
+        drawHearts(c);
     }
 
     private void drawHearts(Canvas c){
@@ -188,6 +201,7 @@ public class GameCanvas extends SurfaceView implements SurfaceHolder.Callback{
                     delta--;
                     updateProtagonist((Protagonist)miner);
                     updateFallables(fallables);
+                    checkTimerAndReset(stopWatch, new Long("5000000000"));
                 }
 
                 // Render specific code is ran in here
