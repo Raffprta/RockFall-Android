@@ -146,15 +146,18 @@ public class GameCanvas extends SurfaceView implements SurfaceHolder.Callback{
 
 
     private void updateFallables(List<Fallable> fallables){
-        for(Fallable f : fallables){
-            f.update(f.getX(), f.getY(), 0, f.getVelY());
+        for(int i = 0; i < fallables.size(); i++){
+            if(fallables.get(i).getY() > this.getHeight() + fallables.get(i).getSprite().getHeight())
+                fallables.remove(i);
+            else
+                fallables.get(i).update(fallables.get(i).getX(), fallables.get(i).getY(), 0, fallables.get(i).getVelY());
         }
     }
 
     private void updateProtagonist(Protagonist e){
         if(touchMonitor.getX() < miner.getX() && touchMonitor.isActivated()){
             miner.update(miner.getX(), miner.getY(), -MOVE_FACTOR, 0);
-        }else if (touchMonitor.getX() > miner.getX() && touchMonitor.isActivated()){
+        }else if (touchMonitor.getX() - miner.getSprite().getWidth() > miner.getX() && touchMonitor.isActivated()){
             miner.update(miner.getX(), miner.getY(), +MOVE_FACTOR, 0);
         }else{
             miner.update(miner.getX(), miner.getY(), 0, 0);
