@@ -14,17 +14,14 @@ import eu.raffprta.rockfall.core.sprite.*;
  */
 public abstract class AbstractEntity implements Entity{
 
-    // For now this List is only for cataloging purposes
-    List<Integer> l = new LinkedList<Integer>();
-
     private Sprite s;
-    private int id;
+    private FallableType id;
     private String name;
     private int x,y, velX, velY;
 
     private Rect collisionBox;
 
-    public AbstractEntity(Sprite s, String name, int id, int x, int y, int velX, int velY){
+    public AbstractEntity(Sprite s, String name, FallableType id, int x, int y, int velX, int velY){
         this.s = s;
         this.name = name;
         this.id = id;
@@ -32,8 +29,6 @@ public abstract class AbstractEntity implements Entity{
         this.y = y;
         this.velX = velX;
         this.velY = velY;
-        // Catalog the Ids
-        l.add(new Integer(id));
         // Add the collision box
         collisionBox = new Rect(x,y,x+s.getSprite().getWidth(),y+s.getSprite().getHeight());
     }
@@ -42,7 +37,7 @@ public abstract class AbstractEntity implements Entity{
         return this.s.getSprite();
     }
 
-    public int getId(){
+    public FallableType getId(){
         return this.id;
     }
 

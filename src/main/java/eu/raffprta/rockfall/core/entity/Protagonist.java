@@ -11,7 +11,7 @@ public class Protagonist extends AbstractEntity{
     // A default value.
     private double lives = 3.0f;
 
-    public Protagonist(Sprite s, String name, int id, int x, int y, int velX, int velY){
+    public Protagonist(Sprite s, String name, FallableType id, int x, int y, int velX, int velY){
         super(s, name, id, x, y, velX, velY);
     }
 

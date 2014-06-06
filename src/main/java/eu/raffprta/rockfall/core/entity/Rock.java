@@ -9,7 +9,7 @@ public class Rock extends AbstractEntity implements Fallable{
 
     private double damageLevel;
 
-    public Rock(Sprite s, String name, int id, int x, int y, int velX, int velY ,double damageLevel){
+    public Rock(Sprite s, String name, FallableType id, int x, int y, int velX, int velY ,double damageLevel){
         super(s, name, id, x, y, velX, velY);
         this.damageLevel = damageLevel;
     }

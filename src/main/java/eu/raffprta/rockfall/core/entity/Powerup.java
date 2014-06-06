@@ -6,7 +6,7 @@ import eu.raffprta.rockfall.core.sprite.Sprite;
 public class Powerup extends AbstractEntity implements Fallable{
 
 
-    public Powerup(Sprite s, String name, int id, int x, int y, int velX, int velY){
+    public Powerup(Sprite s, String name, FallableType id, int x, int y, int velX, int velY){
         super(s, name, id, x, y, velX, velY);
     }
 
