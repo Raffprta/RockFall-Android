@@ -7,10 +7,8 @@ import android.graphics.*;
 import android.util.Log;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
-import java.util.Timer;
 
 import eu.raffprta.rockfall.core.entity.*;
 import eu.raffprta.rockfall.core.entity.Entity;
@@ -91,12 +89,12 @@ public class GameCanvas extends SurfaceView implements SurfaceHolder.Callback{
         Random r = new Random();
         int initialRocks = r.nextInt(this.getWidth() >> 6);
         for(int i = 0 ; i < initialRocks; i++){
-            fallables.add(getRandomFallable(r.nextInt(getWidth()), -1*r.nextInt(getHeight())));
+            fallables.add(getRandomRock(r.nextInt(getWidth()), -1 * r.nextInt(getHeight())));
         }
     }
 
-    private Fallable getRandomFallable(int x, int y){
-        final int FALLABLES_AVAILABLE = 6;
+    private Fallable getRandomRock(int x, int y){
+        final int FALLABLES_AVAILABLE = 7;
         int theRandomNumber = (new Random()).nextInt(FALLABLES_AVAILABLE);
 
         switch(theRandomNumber){
@@ -112,6 +110,29 @@ public class GameCanvas extends SurfaceView implements SurfaceHolder.Callback{
                 return (Fallable)e.getNormalPointedRock(x,y,0,4);
             case 5:
                 return (Fallable)e.getNormalFatRock(x,y,0,2);
+            case 6:
+                return getRandomPowerup(x,y);
+        }
+
+        throw new RuntimeException("Unresolved error with random generation");
+
+    }
+
+    private Fallable getRandomPowerup(int x, int y){
+        final int FALLABLES_AVAILABLE = 5;
+        int theRandomNumber = (new Random()).nextInt(FALLABLES_AVAILABLE);
+
+        switch(theRandomNumber){
+            case 0:
+                return (Fallable)e.getHeartUp(x, y, 0, 2);
+            case 1:
+                return (Fallable)e.getSpeedUp(x, y, 0, 2);
+            case 2:
+                return (Fallable)e.getSpeedDown(x,y,0,3);
+            case 3:
+                return (Fallable)e.getPointsUp(x,y,0,2);
+            case 4:
+                return (Fallable)e.getPointsDown(x,y,0,3);
         }
 
         throw new RuntimeException("Unresolved error with random generation");
@@ -153,6 +174,10 @@ public class GameCanvas extends SurfaceView implements SurfaceHolder.Callback{
         }
     }
 
+    private void applyPowerup(Protagonist p){
+        // TODO : Implements on a Powerup basis.
+    }
+
     private void updateProtagonist(Protagonist e){
         // Update the protagonist's position in relation to touch.
         if(touchMonitor.getX() < miner.getX() && touchMonitor.isActivated()){
@@ -166,6 +191,9 @@ public class GameCanvas extends SurfaceView implements SurfaceHolder.Callback{
         for(int i = 0; i < fallables.size(); i++){
             if(miner.isCollidedWith(fallables.get(i)) && fallables.get(i) instanceof Rock){
                 ((Protagonist)miner).setLives(((Protagonist)miner).getLives() - ((Rock)fallables.get(i)).getDamageLevel());
+                fallables.remove(i);
+            }else if(miner.isCollidedWith(fallables.get(i)) && fallables.get(i) instanceof Powerup){
+                applyPowerup((Protagonist)miner);
                 fallables.remove(i);
             }
         }
