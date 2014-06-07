@@ -72,6 +72,7 @@ public class GameCanvas extends SurfaceView implements SurfaceHolder.Callback{
 
     private List<Fallable> fallables = new ArrayList<Fallable>();
     private StopWatch stopWatch = new StopWatch();
+    private int points = 0;
     /**
      * This handles temporal logic in the game.
      */
@@ -141,10 +142,14 @@ public class GameCanvas extends SurfaceView implements SurfaceHolder.Callback{
 
 
     private void drawAll(Canvas c){
+        screen.render(0, 0, canvas, s.getBackground());
         screen.render(miner.getX(), miner.getY(), c, miner);
         drawFallables(fallables, c);
         drawHearts(c);
+        screen.renderText(0,0,c,"Points: " + Integer.toString(points));
     }
+
+
 
     private void drawHearts(Canvas c){
         double lives = ((Protagonist)miner).getLives();
@@ -167,22 +172,35 @@ public class GameCanvas extends SurfaceView implements SurfaceHolder.Callback{
 
     private void updateFallables(List<Fallable> fallables){
         for(int i = 0; i < fallables.size(); i++){
-            if(fallables.get(i).getY() > this.getHeight() + fallables.get(i).getSprite().getHeight())
+            if(fallables.get(i).getY() > this.getHeight() + fallables.get(i).getSprite().getHeight()) {
                 fallables.remove(i);
+                // The basis of the game is that every fallable dodged = 1 point.
+                points++;
+            }
             else
                 fallables.get(i).update(fallables.get(i).getX(), fallables.get(i).getY(), 0, fallables.get(i).getVelY());
         }
     }
 
-    private void applyPowerup(Protagonist p){
-        // TODO : Implements on a Powerup basis.
+    private void applyPowerup(Protagonist m, Powerup p){
+        if(p.getId() == FallableType.HEART_UP){
+            m.setLives(m.getLives() + 1);
+        }
+        if(p.getId() == FallableType.POINTS_UP){
+            points+=10;
+        }
+        if(p.getId() == FallableType.POINTS_DOWN){
+            points-=10;
+        }
+        // TODO : The other two.
     }
+
 
     private void updateProtagonist(Protagonist e){
         // Update the protagonist's position in relation to touch.
         if(touchMonitor.getX() < miner.getX() && touchMonitor.isActivated()){
             miner.update(miner.getX(), miner.getY(), -MOVE_FACTOR, 0);
-        }else if (touchMonitor.getX() - miner.getSprite().getWidth() > miner.getX() && touchMonitor.isActivated()){
+        }else if (touchMonitor.getX() + miner.getSprite().getWidth() > miner.getX() && touchMonitor.isActivated()){
             miner.update(miner.getX(), miner.getY(), +MOVE_FACTOR, 0);
         }else{
             miner.update(miner.getX(), miner.getY(), 0, 0);
@@ -193,7 +211,7 @@ public class GameCanvas extends SurfaceView implements SurfaceHolder.Callback{
                 ((Protagonist)miner).setLives(((Protagonist)miner).getLives() - ((Rock)fallables.get(i)).getDamageLevel());
                 fallables.remove(i);
             }else if(miner.isCollidedWith(fallables.get(i)) && fallables.get(i) instanceof Powerup){
-                applyPowerup((Protagonist)miner);
+                applyPowerup((Protagonist)miner, (Powerup)fallables.get(i));
                 fallables.remove(i);
             }
         }
@@ -244,7 +262,6 @@ public class GameCanvas extends SurfaceView implements SurfaceHolder.Callback{
 
                 // Render specific code is ran in here
                 canvas = surface.lockCanvas(null);
-                screen.render(0, 0, canvas, s.getBackground());
                 drawAll(canvas);
                 surface.unlockCanvasAndPost(canvas);
                 frames++;

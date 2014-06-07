@@ -1,8 +1,10 @@
 package eu.raffprta.rockfall.app;
 
 import android.graphics.Canvas;
-import android.media.Image;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.util.Log;
+
 
 /**
  * Class that handles what is drawn on the screen - it
@@ -22,5 +24,17 @@ public class GameScreen {
 
     public void render(int x, int y, Canvas c, SpriteContainer s) {
         c.drawBitmap(s.getSprite(), x, y, null);
+    }
+
+    Paint p = new Paint(Paint.ANTI_ALIAS_FLAG);
+
+    public void renderText(int x, int y, Canvas c, String text){
+        p.setColor(Color.TRANSPARENT);
+        c.drawPaint(p);
+        p.setColor(Color.GRAY);
+        p.setStyle(Paint.Style.FILL);
+        final int FONT_SIZE = 36;
+        p.setTextSize(FONT_SIZE);
+        c.drawText(text, x+2, y+FONT_SIZE, p);
     }
 }
