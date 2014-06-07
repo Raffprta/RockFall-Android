@@ -2,7 +2,8 @@
 <resources>
 
     <string name="app_name">Rockfall</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="points">Points: </string>
     <string name="action_settings">Settings</string>
+
 
 </resources>

@@ -34,6 +34,9 @@ public class GameCanvas extends SurfaceView implements SurfaceHolder.Callback{
     private final int MOVE_FACTOR = 4;
     private Entity miner;
 
+    private String pointsStr;
+
+
     public GameCanvas(Context context, Activity parent){
         super(context);
         // pass the resources to our sprite factory.
@@ -50,6 +53,8 @@ public class GameCanvas extends SurfaceView implements SurfaceHolder.Callback{
         this.setLongClickable(true);
         // Add touch listener
         this.setOnTouchListener(touchMonitor);
+        // Get strings
+        this.pointsStr = this.context.getString(R.string.points);
     }
 
     public void surfaceCreated(SurfaceHolder holder){
@@ -140,15 +145,13 @@ public class GameCanvas extends SurfaceView implements SurfaceHolder.Callback{
 
     }
 
-
     private void drawAll(Canvas c){
         screen.render(0, 0, canvas, s.getBackground());
         screen.render(miner.getX(), miner.getY(), c, miner);
         drawFallables(fallables, c);
         drawHearts(c);
-        screen.renderText(0,0,c,"Points: " + Integer.toString(points));
+        screen.renderText(0, 0, c,  pointsStr + Integer.toString(points));
     }
-
 
 
     private void drawHearts(Canvas c){
