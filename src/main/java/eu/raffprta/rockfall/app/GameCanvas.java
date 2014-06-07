@@ -31,7 +31,7 @@ public class GameCanvas extends SurfaceView implements SurfaceHolder.Callback{
     private TouchHandler touchMonitor = new TouchHandler();
     private boolean gameActive = true;
 
-    private final int MOVE_FACTOR = 4;
+    private int moveFactor = 4;
     private Entity miner;
 
     private String pointsStr;
@@ -185,6 +185,8 @@ public class GameCanvas extends SurfaceView implements SurfaceHolder.Callback{
         }
     }
 
+    final int BASE_MOVE = moveFactor;
+
     private void applyPowerup(Protagonist m, Powerup p){
         if(p.getId() == FallableType.HEART_UP){
             m.setLives(m.getLives() + 1);
@@ -195,16 +197,21 @@ public class GameCanvas extends SurfaceView implements SurfaceHolder.Callback{
         if(p.getId() == FallableType.POINTS_DOWN){
             points-=10;
         }
-        // TODO : The other two.
+        if(p.getId() == FallableType.SPEED_DOWN){
+            moveFactor = moveFactor >= BASE_MOVE ? moveFactor-=2 : moveFactor;
+        }
+        if(p.getId() == FallableType.SPEED_UP){
+            moveFactor = moveFactor <= BASE_MOVE ? moveFactor+=2 : moveFactor;
+        }
     }
 
 
     private void updateProtagonist(Protagonist e){
         // Update the protagonist's position in relation to touch.
         if(touchMonitor.getX() < miner.getX() && touchMonitor.isActivated()){
-            miner.update(miner.getX(), miner.getY(), -MOVE_FACTOR, 0);
+            miner.update(miner.getX(), miner.getY(), -moveFactor, 0);
         }else if (touchMonitor.getX() + miner.getSprite().getWidth() > miner.getX() && touchMonitor.isActivated()){
-            miner.update(miner.getX(), miner.getY(), +MOVE_FACTOR, 0);
+            miner.update(miner.getX(), miner.getY(), +moveFactor, 0);
         }else{
             miner.update(miner.getX(), miner.getY(), 0, 0);
         }
