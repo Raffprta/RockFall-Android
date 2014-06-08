@@ -9,6 +9,7 @@ import android.content.pm.ActivityInfo;
 public class MainGame extends Activity {
 
     private GameCanvas game;
+    private MenuCanvas menu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,9 +19,11 @@ public class MainGame extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         // Set mode to fullscreen
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        // Set game canvas
-        game = new GameCanvas(ctx, this);
+        // Set game and menu canvas
+        game = new GameCanvas(ctx, this, new GameScreen(ctx.getResources().getDisplayMetrics().widthPixels, ctx.getResources().getDisplayMetrics().heightPixels));
+        menu = new MenuCanvas(ctx, this, new GameScreen(ctx.getResources().getDisplayMetrics().widthPixels, ctx.getResources().getDisplayMetrics().heightPixels));
         setContentView(game);
     }
+
 
 }

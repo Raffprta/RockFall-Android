@@ -37,7 +37,7 @@ public class GameCanvas extends SurfaceView implements SurfaceHolder.Callback{
     private String pointsStr;
 
 
-    public GameCanvas(Context context, Activity parent){
+    public GameCanvas(Context context, Activity parent, GameScreen screen){
         super(context);
         // pass the resources to our sprite factory.
         s = new SpriteFactory(getResources());
@@ -48,7 +48,7 @@ public class GameCanvas extends SurfaceView implements SurfaceHolder.Callback{
         surface = this.getHolder();
         surface.addCallback(this);
         this.parent = parent;
-        this.screen = new GameScreen(this.getWidth(), this.getHeight());
+        this.screen = screen;
         // This enables the capture of ACTION_DOWN (i.e. release)
         this.setLongClickable(true);
         // Add touch listener
