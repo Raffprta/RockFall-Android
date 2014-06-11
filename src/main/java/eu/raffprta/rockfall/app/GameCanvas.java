@@ -215,6 +215,7 @@ public class GameCanvas extends SurfaceView implements SurfaceHolder.Callback{
         }else{
             miner.update(miner.getX(), miner.getY(), 0, 0);
         }
+
         // Check for collision with Rocks (using instanceof)
         for(int i = 0; i < fallables.size(); i++){
             if(miner.isCollidedWith(fallables.get(i)) && fallables.get(i) instanceof Rock){

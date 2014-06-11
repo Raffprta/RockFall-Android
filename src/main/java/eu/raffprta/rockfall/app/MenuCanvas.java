@@ -87,6 +87,9 @@ public class MenuCanvas extends SurfaceView implements SurfaceHolder.Callback{
             boolean isStartClicked = false;
             while(!isStartClicked){
                 isStartClicked = startGame.contains(touchHandler.getX(), touchHandler.getY());
+                // Check if the quit option is shown.
+                if(exitGame.contains(touchHandler.getX(), touchHandler.getY()))
+                    System.exit(0);
             }
 
             wrapThread();
