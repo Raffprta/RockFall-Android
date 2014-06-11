@@ -37,4 +37,12 @@ public class GameScreen {
         p.setTextSize(FONT_SIZE);
         c.drawText(text, x+2, y+FONT_SIZE, p);
     }
+
+    public int getWidth(){
+        return this.width;
+    }
+
+    public int getHeight(){
+        return this.height;
+    }
 }

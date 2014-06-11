@@ -2,9 +2,12 @@ package eu.raffprta.rockfall.app;
 
 import android.app.*;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.*;
 import android.content.*;
 import android.content.pm.ActivityInfo;
+
+import eu.raffprta.rockfall.core.entity.Protagonist;
 
 public class MainGame extends Activity {
 
@@ -22,8 +25,22 @@ public class MainGame extends Activity {
         // Set game and menu canvas
         game = new GameCanvas(ctx, this, new GameScreen(ctx.getResources().getDisplayMetrics().widthPixels, ctx.getResources().getDisplayMetrics().heightPixels));
         menu = new MenuCanvas(ctx, this, new GameScreen(ctx.getResources().getDisplayMetrics().widthPixels, ctx.getResources().getDisplayMetrics().heightPixels));
-        setContentView(game);
+        setContentView(menu);
     }
+
+    public void switchTo(int id){
+        if(id == 0) {
+            Intent i = new Intent(menu.getContext(), MainGame.class);
+            startActivity(i);
+        }
+        else if (id == 1){
+            Intent i = new Intent(game.getContext(), GameIntent.class);
+            startActivity(i);
+        }
+        else
+            throw new IllegalArgumentException("Number must be 0 or 1");
+    }
+
 
 
 }
