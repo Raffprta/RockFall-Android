@@ -28,14 +28,13 @@ public class GameScreen {
 
     Paint p = new Paint(Paint.ANTI_ALIAS_FLAG);
 
-    public void renderText(int x, int y, Canvas c, String text){
+    public void renderText(int x, int y, Canvas c, String text, int fontSize){
         p.setColor(Color.TRANSPARENT);
         c.drawPaint(p);
         p.setColor(Color.GRAY);
         p.setStyle(Paint.Style.FILL);
-        final int FONT_SIZE = 36;
-        p.setTextSize(FONT_SIZE);
-        c.drawText(text, x+2, y+FONT_SIZE, p);
+        p.setTextSize(fontSize);
+        c.drawText(text, x+2, y+fontSize, p);
     }
 
     public int getWidth(){

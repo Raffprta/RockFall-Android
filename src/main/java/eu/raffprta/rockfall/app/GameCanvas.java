@@ -150,7 +150,7 @@ public class GameCanvas extends SurfaceView implements SurfaceHolder.Callback{
         screen.render(miner.getX(), miner.getY(), c, miner);
         drawFallables(fallables, c);
         drawHearts(c);
-        screen.renderText(0, 0, c,  pointsStr + Integer.toString(points));
+        screen.renderText(0, 0, c,  pointsStr + Integer.toString(points), 36);
     }
 
 
@@ -268,7 +268,11 @@ public class GameCanvas extends SurfaceView implements SurfaceHolder.Callback{
                     delta--;
                     updateProtagonist((Protagonist)miner);
                     updateFallables(fallables);
-                    checkTimerAndReset(stopWatch, new Long("5000000000"));
+                    checkTimerAndReset(stopWatch, 5000000000L);
+                    if(((Protagonist)miner).getLives() <= 0){
+                        gameActive = false;
+                        break;
+                    }
                 }
 
                 // Render specific code is ran in here
@@ -289,6 +293,19 @@ public class GameCanvas extends SurfaceView implements SurfaceHolder.Callback{
                 }
 
 
+            }
+            // The game loop has ended, time to switch back to the menu.
+            if(!gameActive){
+                canvas = surface.lockCanvas(null);
+                screen.renderText(screen.getWidth() / 6, screen.getHeight() / 2, canvas,
+                context.getString(R.string.game_over) + " " + Integer.toString(points) + " " + context.getString(R.string.small_points), 80);
+                surface.unlockCanvasAndPost(canvas);
+                try {
+                    Thread.sleep(3000);
+                } catch (InterruptedException e1) {
+                    e1.printStackTrace();
+                }
+                ((GameIntent)parent).switchToMenu();
             }
         }
 

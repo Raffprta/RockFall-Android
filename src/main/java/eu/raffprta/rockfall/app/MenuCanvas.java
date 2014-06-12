@@ -69,15 +69,15 @@ public class MenuCanvas extends SurfaceView implements SurfaceHolder.Callback{
         p.setColor(Color.GREEN);
         s.render(0, 0, canvas, spr.getBackground());
         canvas.drawRect(startGame, p);
-        s.renderText(startGame.left, startGame.top, canvas, this.context.getString(R.string.start_game));
+        s.renderText(startGame.left, startGame.top, canvas, this.context.getString(R.string.start_game), 36);
         canvas.drawRect(highScore, p);
-        s.renderText(highScore.left, highScore.top, canvas, this.context.getString(R.string.view_score));
+        s.renderText(highScore.left, highScore.top, canvas, this.context.getString(R.string.view_score), 36);
         canvas.drawRect(exitGame, p);
-        s.renderText(exitGame.left, exitGame.top, canvas, this.context.getString(R.string.exit_game));
+        s.renderText(exitGame.left, exitGame.top, canvas, this.context.getString(R.string.exit_game), 36);
     }
 
     private void wrapThread(){
-        ((MainGame)parent).switchTo(1);
+        ((MainGame)parent).switchToGame();
     }
 
     private class MenuThread implements Runnable {

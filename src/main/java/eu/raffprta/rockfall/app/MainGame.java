@@ -28,17 +28,11 @@ public class MainGame extends Activity {
         setContentView(menu);
     }
 
-    public void switchTo(int id){
-        if(id == 0) {
-            Intent i = new Intent(menu.getContext(), MainGame.class);
-            startActivity(i);
-        }
-        else if (id == 1){
-            Intent i = new Intent(game.getContext(), GameIntent.class);
-            startActivity(i);
-        }
-        else
-            throw new IllegalArgumentException("Number must be 0 or 1");
+    public void switchToGame(){
+
+        Intent i = new Intent(game.getContext(), GameIntent.class);
+        startActivity(i);
+
     }
 
 
