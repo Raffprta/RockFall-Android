@@ -29,8 +29,9 @@ public class GameIntent extends Activity {
     }
 
     public void switchToMenu(){
-         Intent i = new Intent(menu.getContext(), MainGame.class);
-         startActivity(i);
+        this.finish();
+        Intent i = new Intent(menu.getContext(), MainGame.class);
+        startActivity(i);
     }
 
 }

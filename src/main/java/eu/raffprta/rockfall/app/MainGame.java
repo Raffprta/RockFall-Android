@@ -29,7 +29,7 @@ public class MainGame extends Activity {
     }
 
     public void switchToGame(){
-
+        this.finish();
         Intent i = new Intent(game.getContext(), GameIntent.class);
         startActivity(i);
 
