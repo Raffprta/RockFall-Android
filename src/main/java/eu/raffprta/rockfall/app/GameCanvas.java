@@ -297,6 +297,9 @@ public class GameCanvas extends SurfaceView implements SurfaceHolder.Callback{
             // The game loop has ended, time to switch back to the menu.
             if(!gameActive){
                 canvas = surface.lockCanvas(null);
+                // Render end game text, and destroy all fallables
+                fallables.clear();
+                drawAll(canvas);
                 screen.renderText(screen.getWidth() / 6, screen.getHeight() / 2, canvas,
                 context.getString(R.string.game_over) + " " + Integer.toString(points) + " " + context.getString(R.string.small_points), 80);
                 surface.unlockCanvasAndPost(canvas);
